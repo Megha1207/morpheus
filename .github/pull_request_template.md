@@ -1,5 +1,5 @@
 # Your Name
-MEGHA SINGH
+MEGHA SINGH - NIIT UNIVERSITY
 ## Submission checklist
 
 
