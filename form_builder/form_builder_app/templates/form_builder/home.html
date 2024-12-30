@@ -1,0 +1,24 @@
+<!-- form_builder_app/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+<body>
+    <h1>Welcome to the Form Builder</h1>
+    <h2>Available Forms</h2>
+    <ul>
+        {% for form in forms %}
+            <li>
+                <a href="{% url 'fill_form' form.id %}">{{ form.title }}</a>
+            </li>
+        {% empty %}
+            <p>No forms available.</p>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'admin_dashboard' %}">Admin Dashboard</a>  <!-- Link to the admin dashboard -->
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- templates/form_builder/analytics.html -->
+{% extends 'form_builder/layout.html' %}
+
+{% block content %}
+<h2>Analytics for {{ form.title }}</h2>
+<p>Total Responses: {{ form.responses.count }}</p>
+
+<h3>Text Responses (Top 5 Most Common Words)</h3>
+<ul>
+    {% for word, count in text_data %}
+        <li>{{ word }}: {{ count }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Checkbox Responses (Top 5 Combinations)</h3>
+<ul>
+    {% for combination, count in checkbox_data %}
+        <li>{{ combination }}: {{ count }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Dropdown Responses (Top 5 Selections)</h3>
+<ul>
+    {% for option, count in dropdown_data %}
+        <li>{{ option }}: {{ count }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
