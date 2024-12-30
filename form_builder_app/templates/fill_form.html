@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"], select, .checkbox-group {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .checkbox-group label {
+            display: inline-block;
+            margin-right: 15px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>{{ form.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for question in form.questions.all %}
+            <div class="question">
+                <label>{{ question.text }}</label>
+
+                {% if question.question_type == 'text' %}
+                    <input type="text" name="question_{{ question.id }}" placeholder="Your answer" required>
+
+                {% elif question.question_type == 'dropdown' %}
+                    <select name="question_{{ question.id }}" required>
+                        {% for option in question.options %}
+                            <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+
+                {% elif question.question_type == 'checkbox' %}
+                    <div class="checkbox-group">
+                        {% for option in question.options %}
+                            <label>
+                                <input type="checkbox" name="question_{{ question.id }}" value="{{ option }}">
+                                {{ option }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>
